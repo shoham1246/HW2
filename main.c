@@ -80,28 +80,22 @@ int checkNumberOfLinesAndValidation(FILE *fd){
 
 void calcMedian(FILE *fd){
 
-	int N = checkNumberOfLinesAndValidation(fd);//number of lines in file
-	int grade;
+	int hist[101] = {0};
 
-	int *grades = malloc(N*sizeof(int));
+	while(1){
+		scanf_return = fscanf(fd, "%d", &grade);
 
-	int i= 0;
+		if(scanf_return == EOF){
+			break; //end of file
+		} else if (scanf_return !=1){
+			fprintf(stderr, "Error at line %d: invalid input YYY", N); //write input!!!!
+			exit(1);
+		}
 
-	//return cursor to start of file
-	fseek(fd, 0, SEEK_SET);
-
-	while(fscanf(fd, "%d", &grade)!=EOF){
-		printf("scanned num : %d \n", grade);
-		grades[i]= grade;
-		i++;
-	}
-	qsort(grades, N, sizeof(int), compare);
-
-	for(int i=0; i<N; i++){
-		printf("%d \n", grades[i]);
+		hist[scanf_return] ++;
 	}
 
-	int med_idx = (N+1)/2 -1;
+	
 
 	fprintf(stdout, "median number %d", grades[med_idx]); //prints median in stdout
 }
