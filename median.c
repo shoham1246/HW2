@@ -12,7 +12,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 /**
  * @brief Application's main entry point
@@ -43,7 +42,7 @@ int main(int argc, char **argv) {
 		if(scanf_return == EOF){
 			break; //end of file
 		} else if (scanf_return !=1 || grade <0 || grade > 100){
-			fprintf(stderr, "Error at line %d: invalid input %d", num_of_grades, grade ); //write input!!!!
+			fprintf(stderr, "Error at line %d: invalid input %d", num_of_grades, grade-1 ); //write input!!!!
 			exit(1);
 		}
 		num_of_grades++;
@@ -63,7 +62,7 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	fprintf(stdout, "median number %d", runner -1); //prints median in stdout
+	fprintf(stdout, "%d", runner -1); //prints median in stdout
 
 
 	fclose(fd);
