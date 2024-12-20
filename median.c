@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 		if(scanf_return == EOF){
 			break; //end of file
 		} else if (scanf_return !=1 || grade <0 || grade > 100){
-			fprintf(stderr, "Error at line %d: invalid input %d", num_of_grades, grade-1 ); //write input!!!!
+			fprintf(stderr, "Error at line %d: invalid input %d", num_of_grades+1, grade ); //write input!!!!
 			exit(1);
 		}
 		num_of_grades++;
