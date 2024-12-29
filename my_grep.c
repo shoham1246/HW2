@@ -21,14 +21,11 @@
  * @return Non-zero value in case of an error
  */
  
-<<<<<<< HEAD
  #define BUFFER_SIZE 1024 //number of temp bits to get data (for char 8, int 32..)
 
 
 int match(char* line_pointer , char* regex_pointer);
-=======
  #define BUFFER_SIZE 8 //number of temp bits to get data (for char 8, int 32..)
->>>>>>> fabb6f2e12223889caa6d4e7c33ad66e1b6ea444
 
 int main(int argc, char **argv) {
 
@@ -40,17 +37,13 @@ int main(int argc, char **argv) {
 		fd = stdin;
 	} else{
 		fd = fopen(argv[1], "r");
-<<<<<<< HEAD
 		printf("i have file\n");
-=======
->>>>>>> fabb6f2e12223889caa6d4e7c33ad66e1b6ea444
 		if(fd == NULL){
 			fprintf(stderr, "Error occurred");
 			return(1);
 		}
 	}
 
-<<<<<<< HEAD
 	char* regex_pointer = argv[2];
 
 	printf("\n");
@@ -147,7 +140,6 @@ int match(char* line_pointer , char* regex_pointer){
 	}
 
 	return 0;
-=======
 
 	//envelope for lines process 
 	while(fgets(buffer, BUFFER_SIZE, fd)!= EOF){
@@ -179,7 +171,7 @@ int match(char* line_pointer , char* regex_pointer){
 
 	return 0;
 
->>>>>>> fabb6f2e12223889caa6d4e7c33ad66e1b6ea444
+ 
 }
 
 
@@ -189,9 +181,3 @@ int match(char* line_pointer , char* regex_pointer){
 
 
 
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> fabb6f2e12223889caa6d4e7c33ad66e1b6ea444
