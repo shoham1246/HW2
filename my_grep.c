@@ -68,9 +68,7 @@ int main(int argc, char **argv) {
 
 		//get to next line
 
-
 	}
-
 
 
 	return 0;
@@ -110,8 +108,24 @@ int match(char* line_pointer , char* regex_pointer){
 
 	//special regex char . 
 	if(*new_regex_pointer == '.'){
+
+		//check for case .*
+		if(*(new_regex_pointer + 1 )== '*'){
+			
+			char tmp_end_char = *(new_regex_pointer +2);
+
+			while(*new_line_pointer != tmp_end_char && *new_line_pointer != '\n'){
+				new_line_pointer = new_line_pointer +1;
+			}
+
+			return match(new_line_pointer, new_regex_pointer + 2);
+		}
+
 		//ignore whatevere char is between #.# every char is allowed
 		return match(new_line_pointer +1 , new_regex_pointer + 1);
+
+
+
 	}
 
 
