@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	fprintf(stdout, "%d", runner -1); //prints median in stdout
+	fprintf(stdout, "%d/n", runner -1); //prints median in stdout
 
 
 	fclose(fd);
