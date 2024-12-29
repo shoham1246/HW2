@@ -57,7 +57,6 @@ int main(int argc, char **argv) {
 
 		is_line_good = match(line_pointer, regex_pointer);
 
-
 		// decide what to do print
 		if(is_line_good){
 			//print line
@@ -86,6 +85,8 @@ int match(char* line_pointer , char* regex_pointer){
 
 	char* new_line_pointer = line_pointer;
 	char* new_regex_pointer = regex_pointer;
+
+
 	if(*new_regex_pointer == '\0'){
 		//regex is finished, we found a line tp print!
 		return 1;
@@ -114,6 +115,26 @@ int match(char* line_pointer , char* regex_pointer){
 	if(*new_regex_pointer == '.'){
 		//ignore whatevere char is between #.# every char is allowed
 		return match(new_line_pointer +1 , new_regex_pointer + 1);
+	}
+
+
+	//special regex char *
+	if(*(new_regex_pointer +1) == '*'){
+
+
+		if(*new_line_pointer == *new_regex_pointer){
+			//to allow 1 or more shows of the char previous to * in the regex
+			char char_tmp = *new_regex_pointer;
+
+			while(*new_line_pointer == char_tmp){
+				new_line_pointer = new_line_pointer +1;
+			}
+			return match(new_line_pointer , new_regex_pointer +2);
+
+		}else{
+			//to allow zero show of the char
+			return match(new_line_pointer, new_regex_pointer +2);
+		}
 	}
 
 
