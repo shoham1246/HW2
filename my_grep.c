@@ -44,9 +44,6 @@ int main(int argc, char **argv) {
 
 	char* regex_pointer = argv[2];
 
-	printf("\n");
-
-
 	//envelope for lines process 
 	int is_line_good = 0;
 	char buffer[BUFFER_SIZE];
