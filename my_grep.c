@@ -24,7 +24,7 @@
  #define BUFFER_SIZE 1024 //number of temp bits to get data (for char 8, int 32..)
 
 
-int match(char* line_pointer , char* regex_pointer);
+int match(char* line_pointer , char* regex_pointer, int allowed_global);
 
 int main(int argc, char **argv) {
 
@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
 
 		char* line_pointer = buffer;
 
-		is_line_good = match(line_pointer, regex_pointer);
+		is_line_good = match(line_pointer, regex_pointer, 1);
 
 		// decide what to do print
 		if(is_line_good){
@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
 }
 
 
-int match(char* line_pointer , char* regex_pointer){
+int match(char* line_pointer , char* regex_pointer, int allowed_global){
 
 	char* new_line_pointer = line_pointer;
 	char* new_regex_pointer = regex_pointer;
@@ -101,7 +101,7 @@ int match(char* line_pointer , char* regex_pointer){
 	//special regex char ^ 
 	if(*new_regex_pointer == '^'){
 		//check if the wanted start string is in current line
-		return match(new_line_pointer, new_regex_pointer + 1);
+		return match(new_line_pointer, new_regex_pointer + 1, 0);
 	}
 
 
@@ -118,11 +118,11 @@ int match(char* line_pointer , char* regex_pointer){
 				new_line_pointer = new_line_pointer +1;
 			}
 
-			return match(new_line_pointer, new_regex_pointer + 2);
+			return match(new_line_pointer, new_regex_pointer + 2, allowed_global);
 		}
 
 		//ignore whatevere char is between #.# every char is allowed
-		return match(new_line_pointer +1 , new_regex_pointer + 1);
+		return match(new_line_pointer +1 , new_regex_pointer + 1, allowed_global);
 
 
 
@@ -140,25 +140,25 @@ int match(char* line_pointer , char* regex_pointer){
 			while(*new_line_pointer == char_tmp){
 				new_line_pointer = new_line_pointer +1;
 			}
-			return match(new_line_pointer , new_regex_pointer +2);
+			return match(new_line_pointer , new_regex_pointer +2, allowed_global);
 
 		}else{
 			//to allow zero show of the char
-			return match(new_line_pointer, new_regex_pointer +2);
+			return match(new_line_pointer, new_regex_pointer +2, allowed_global);
 		}
 	}
 
 
 	//compare chars of regex and line
 	if(*new_line_pointer == *new_regex_pointer){
-		return match(new_line_pointer + 1, new_regex_pointer + 1);
+		return match(new_line_pointer + 1, new_regex_pointer + 1, allowed_global);
 	}
 
 
 	//if chars not equal we try to advance the line pointer
-	if(*new_line_pointer != *new_regex_pointer){
+	if((*new_line_pointer != *new_regex_pointer)&&(allowed_global == 1)){
 
-		int was_pattern_found = match(new_line_pointer +1, new_regex_pointer);
+		int was_pattern_found = match(new_line_pointer +1, new_regex_pointer, 1);
 		//if the wanted regex pattern was found elsewhere in the line
 		if(was_pattern_found == 1){
 			return 1;
