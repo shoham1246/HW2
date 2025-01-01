@@ -87,6 +87,11 @@ int match(char* line_pointer , char* regex_pointer, int allowed_global){
 		return 1;
 	}
 
+	//special !
+	if(*new_regex_pointer == '\\' && *(new_regex_pointer +1) == '!'){
+		new_regex_pointer ++;
+	}
+
 	//special regex char $ 
 	if(*new_regex_pointer == '$' && *new_line_pointer == '\n'){
 		//the wanted finish string was already compared with the line
@@ -98,8 +103,7 @@ int match(char* line_pointer , char* regex_pointer, int allowed_global){
 		return 1;
 	}
 
-		if(*new_regex_pointer == '$'){
-		//the wanted finish string was already compared with the line
+	if(*new_regex_pointer == '$'){
 		return 0;
 	}
 
